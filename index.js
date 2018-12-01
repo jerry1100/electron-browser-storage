@@ -1,8 +1,16 @@
-const { BrowserWindow } = require('electron');
+const { app, BrowserWindow } = require('electron');
 
 // Create an empty BrowserWindow to access browser storage
-const storageWindow = new BrowserWindow({ show: false });
-storageWindow.loadFile(__filename);
+let storageWindow;
+if (app.isReady()) {
+  storageWindow = new BrowserWindow({ show: false });
+  storageWindow.loadFile(__filename);
+} else {
+  app.on('ready', () => {
+    storageWindow = new BrowserWindow({ show: false });
+    storageWindow.loadFile(__filename);
+  });
+}
 
 // Execute code in the BrowserWindow
 function execute(code) {
