@@ -33,3 +33,28 @@ module.exports.setItem = (key, value) => {
   const code = `window.localStorage.setItem('${key}', '${value}');`;
   return storageWindow.webContents.executeJavaScript(code);
 };
+
+/**
+ * Gets an item from sessionStorage
+ * @param {string} key The key to get
+ */
+module.exports.getItem = key => {
+  if (process.type === 'renderer') {
+    return window.sessionStorage.getItem(key);
+  }
+  const code = `window.sessionStorage.getItem('${key}');`;
+  return storageWindow.webContents.executeJavaScript(code);
+};
+
+/**
+ * Sets an item in sessionStorage
+ * @param {string} key The key to set
+ * @param {*} value The value to set
+ */
+module.exports.setItem = (key, value) => {
+  if (process.type === 'renderer') {
+    return window.sessionStorage.setItem(key, value);
+  }
+  const code = `window.sessionStorage.setItem('${key}', '${value}');`;
+  return storageWindow.webContents.executeJavaScript(code);
+};
