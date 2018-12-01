@@ -59,7 +59,7 @@ class Storage {
    * @param {string} key Key to remove
    */
   removeItem(key) {
-    return execute(`window.${this.storageName}.removeItem('${key}', '${value}');`);
+    return execute(`window.${this.storageName}.removeItem('${key}');`);
   }
 
   /**
