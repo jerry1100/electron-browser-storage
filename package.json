@@ -15,6 +15,14 @@
     "main",
     "process"
   ],
-  "author": "Jerry Wu",
+  "author": {
+    "name": "Jerry Wu",
+    "email": "jwu1100@gmail.com",
+    "url": "https://jerry1100.github.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jerry1100/electron-browser-storage.git"
+  },
   "license": "MIT"
 }
