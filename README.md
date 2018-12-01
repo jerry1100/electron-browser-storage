@@ -28,5 +28,5 @@ sessionStorage.setItem('favorite_color', 'blue')
   .then(() => sessionStorage.key(0)) // 'favorite_color'
   .then(() => sessionStorage.length()) // 1
   .then(() => sessionStorage.removeItem('favorite_color'))
-  .then(() => sessionStorage.clear())
+  .then(() => sessionStorage.clear());
 ```
