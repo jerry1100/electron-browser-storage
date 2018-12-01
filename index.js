@@ -15,6 +15,13 @@ class Storage {
   }
 
   /**
+   * Returns the number of items in the storage
+   */
+  length() {
+    return execute(`window.${this.storageName}.length;`);
+  }
+
+  /**
    * Returns the key at the given index
    * @param {number} index Index to get
    */
