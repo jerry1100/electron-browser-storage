@@ -1,5 +1,5 @@
 {
-  "name": "electron-localstorage",
+  "name": "electron-browser-storage",
   "version": "1.0.0",
   "description": "Access localStorage from the main process",
   "main": "index.js",
