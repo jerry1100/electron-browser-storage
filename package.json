@@ -1,0 +1,17 @@
+{
+  "name": "electron-localstorage",
+  "version": "1.0.0",
+  "description": "Access localStorage from the main process",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "electron",
+    "localstorage",
+    "main",
+    "process"
+  ],
+  "author": "Jerry Wu",
+  "license": "MIT"
+}
