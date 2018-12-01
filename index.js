@@ -4,50 +4,63 @@ const { BrowserWindow } = require('electron');
 const storageWindow = new BrowserWindow({ show: false });
 storageWindow.loadFile(__filename);
 
+// Execute code in the BrowserWindow
+function execute(code) {
+  return storageWindow.webContents.executeJavaScript(code);
+}
+
+class Storage {
+  constructor(storageName) {
+    this.storageName = storageName;
+  }
+
+  /**
+   * Returns the key at the given index
+   * @param {number} index Index to get
+   */
+  key(index) {
+    return execute(`window.${this.storageName}.key('${index}');`);
+  }
+
+  /**
+   * Returns the value for the given key
+   * @param {string} key Key to get
+   */
+  getItem(key) {
+    return execute(`window.${this.storageName}.getItem('${key}');`);
+  }
+
+  /**
+   * Sets the value for the given key
+   * @param {string} key Key to set
+   * @param {*} value Value to set
+   */
+  setItem(key, value) {
+    return execute(`window.${this.storageName}.setItem('${key}', '${value}');`);
+  }
+
+  /**
+   * Removes the item at the given key
+   * @param {string} key Key to remove
+   */
+  removeItem(key) {
+    return execute(`window.${this.storageName}.removeItem('${key}', '${value}');`);
+  }
+
+  /**
+   * Removes all keys and values
+   */
+  clear() {
+    return execute(`window.${this.storageName}.clear();`);
+  }
+}
+
 /**
  * localStorage object
  */
-module.exports.localStorage = {
-  /**
-   * Gets an item from localStorage
-   * @param {string} key The key to get
-   */
-  getItem(key) {
-    const code = `window.localStorage.getItem('${key}');`;
-    return storageWindow.webContents.executeJavaScript(code);
-  },
-
-  /**
-   * Sets an item in localStorage
-   * @param {string} key The key to set
-   * @param {*} value The value to set
-   */
-  setItem(key, value) {
-    const code = `window.localStorage.setItem('${key}', '${value}');`;
-    return storageWindow.webContents.executeJavaScript(code);
-  },
-};
+module.exports.localStorage = new Storage('localStorage');
 
 /**
  * sessionStorage object
  */
-module.exports.sessionStorage = {
-  /**
-   * Gets an item from sessionStorage
-   * @param {string} key The key to get
-   */
-  getItem(key) {
-    const code = `window.sessionStorage.getItem('${key}');`;
-    return storageWindow.webContents.executeJavaScript(code);
-  },
-
-  /**
-   * Sets an item in sessionStorage
-   * @param {string} key The key to set
-   * @param {*} value The value to set
-   */
-  setItem(key, value) {
-    const code = `window.sessionStorage.setItem('${key}', '${value}');`;
-    return storageWindow.webContents.executeJavaScript(code);
-  },
-};
+module.exports.sessionStorage = new Storage('sessionStorage');
