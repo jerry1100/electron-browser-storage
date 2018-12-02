@@ -66,7 +66,7 @@ localStorage.setItem = (key, value) => {
 Because nothing is being escaped, **be careful** when saving user input, since code injection is possible.
 ```javascript
 // Example of code injection
-const userInput = `'); require('electron').remote.shell.openExternal('https://google.com'); ('`;
+const userInput = `'); someInjectedCode(); ('`;
 await localStorage.setItem('user_name', userInput);
 ```
 
