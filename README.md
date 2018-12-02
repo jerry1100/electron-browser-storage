@@ -56,17 +56,18 @@ Removes all keys and values and returns a promise that resolves when complete.
 
 ## Security Concerns
 Under the covers, this uses [`webContents.executeJavaScript()`](https://electronjs.org/docs/api/web-contents#contentsexecutejavascriptcode-usergesture-callback) to access `localStorage` and `sessionStorage` in the renderer process.
-
 ```javascript
 // This is what the call to setItem() looks like
 localStorage.setItem = (key, value) => {
   return webContents.executeJavaScript(`window.localStorage.setItem('${key}', '${value}');`);
 };
 ```
-Because nothing is being escaped, **be careful** when saving user input, since code injection is possible.
 
+Because nothing is being escaped, **be careful** when saving user input, since code injection is possible.
 ```javascript
 // Example of code injection
 const userInput = `'); require('electron').remote.shell.openExternal('https://google.com'); ('`;
 await localStorage.setItem('user_name', userInput);
 ```
+
+I'm still trying to figure out how to get around this. If you have any ideas, feel free to DM me or [open an issue](https://github.com/jerry1100/electron-browser-storage/issues/new).
