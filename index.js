@@ -10,7 +10,12 @@ if (app.isReady()) {
 
 // Initialize the storageWindow
 function initWindow() {
-  storageWindow = new BrowserWindow({ show: false });
+  storageWindow = new BrowserWindow({
+    show: false,
+    webPreferences: {
+      nodeIntegration: false,
+    },
+  });
   storageWindow.loadFile(__filename);
 }
 
