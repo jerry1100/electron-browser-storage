@@ -1,6 +1,6 @@
 {
   "name": "electron-browser-storage",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Access localStorage and sessionStorage from the main process",
   "main": "index.js",
   "scripts": {
