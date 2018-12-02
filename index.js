@@ -21,6 +21,12 @@ function initWindow() {
 
 // Execute code in the BrowserWindow
 function execute(code) {
+  if (!app.isReady()) {
+    throw Error('Storage methods can only be called after the app is ready.')
+  }
+  if (!storageWindow) {
+    throw Error('Storage window is not initialized.')
+  }
   return storageWindow.webContents.executeJavaScript(code);
 }
 
