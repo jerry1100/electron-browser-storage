@@ -59,7 +59,7 @@ Under the covers, this uses [`webContents.executeJavaScript()`](https://electron
 ```javascript
 // This is what the call to setItem() looks like
 localStorage.setItem = (key, value) => {
-  return webContents.executeJavaScript(`window.localStorage.setItem('${key}', '${value}');`);
+  return win.webContents.executeJavaScript(`window.localStorage.setItem('${key}', '${value}');`);
 };
 ```
 
@@ -68,6 +68,9 @@ Because nothing is being escaped, **be careful** when saving user input, since c
 // Example of code injection
 const userInput = `'); someInjectedCode(); ('`;
 await localStorage.setItem('user_name', userInput);
+
+// Resulting in this getting executed
+win.webContents.executeJavaScript(`window.localStorage.setItem('user_name', ''); someInjectedCode(); ('');`);
 ```
 
 I'm still trying to figure out how to get around this. If you have any ideas, feel free to DM me or [open an issue](https://github.com/jerry1100/electron-browser-storage/issues/new).
