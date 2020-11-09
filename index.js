@@ -8,7 +8,7 @@ if (app.isReady()) {
   app.on('ready', initWindow);
 }
 
-// Initialize the storageWindow
+// Initializes the storageWindow
 function initWindow() {
   storageWindow = new BrowserWindow({
     show: false,
@@ -16,17 +16,33 @@ function initWindow() {
       nodeIntegration: false,
     },
   });
+
   storageWindow.loadFile(__filename);
+
+  // If this is the last window, user probably wants to quit. Closing this
+  // hidden window will allow the app to quit.
+  setInterval(closeIfLastWindow, 1000);
 }
 
-// Execute code in the BrowserWindow
+// Closes the storage window if it's the last one
+function closeIfLastWindow() {
+  const browserWindows = BrowserWindow.getAllWindows();
+
+  if (browserWindows.length === 1 && browserWindows[0] === storageWindow) {
+    storageWindow.close();
+  }
+}
+
+// Executes code in the BrowserWindow
 function execute(code) {
   if (!app.isReady()) {
     throw Error('Storage methods can only be called after the app is ready.')
   }
+
   if (!storageWindow) {
     throw Error('Storage window is not initialized.')
   }
+
   return storageWindow.webContents.executeJavaScript(code);
 }
 
